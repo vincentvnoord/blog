@@ -1,7 +1,7 @@
 INSERT INTO blogposts (slug, title, description, content)
 VALUES (
-'sample-blog-post', 
-'Sample Blog Post',
+'from-consumer-to-creator', 
+'From Consumer to Creator',
 'This is a sample blog post for testing purposes.',
 $$
 Technology has many great upsides. From powerful information sharing capabilities to awesome graphics, the possibilities for helping others is vast.

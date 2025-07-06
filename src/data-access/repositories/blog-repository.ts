@@ -1,19 +1,23 @@
 import { Repository } from "../repository";
 
-type BlogPost = {
-  id: number;
+type BlogPostMetadata = {
   title: string;
+  description: string;
+}
+
+type BlogPost = BlogPostMetadata & {
+  id: number;
   content: string;
 }
 
 export class BlogRepository extends Repository {
-  async getBlogPostBySlug(title: string): Promise<BlogPost | null> {
+  async getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
     const query = `
       SELECT id, title, content
       FROM blogposts
       WHERE slug = $1
     `;
-    const values = [title];
+    const values = [slug];
 
     try {
       const result = await this.client.query(query, values);
@@ -38,6 +42,28 @@ export class BlogRepository extends Repository {
       return result.rows.map(row => row.title);
     } catch (error) {
       console.error("Error fetching blog post titles:", error);
+      throw error;
+    }
+  }
+
+  async getBlogPostMetadata(slug: string): Promise<BlogPostMetadata | null> {
+    const query = `
+      SELECT title, description
+      FROM blogposts
+      WHERE slug = $1
+      LIMIT 1
+    `;
+    const values = [slug];
+
+    try {
+      const result = await this.client.query(query, values);
+      if (result.rows.length > 0) {
+        return result.rows[0] as BlogPostMetadata;
+      }
+
+      return null;
+    } catch (error) {
+      console.error("Error fetching blog post metadata:", error);
       throw error;
     }
   }
