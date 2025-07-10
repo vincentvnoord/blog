@@ -24,8 +24,8 @@ CREATE TABLE public.blogposts (
     description text NOT NULL,
     slug character varying(60) NOT NULL,
     content text NOT NULL,
-    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-    published_at timestamp without time zone
+    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
+    published_at timestamp with time zone
 );
 
 

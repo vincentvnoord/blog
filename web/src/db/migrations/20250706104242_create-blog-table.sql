@@ -6,8 +6,8 @@ CREATE TABLE blogposts (
     description TEXT NOT NULL,
     slug VARCHAR(60) NOT NULL UNIQUE,
     content TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    published_at TIMESTAMP NULL
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    published_at TIMESTAMPTZ NULL
 );
 
 -- migrate:down
