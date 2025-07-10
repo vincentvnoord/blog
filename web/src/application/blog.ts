@@ -2,7 +2,7 @@ import { BlogPostDto, BlogRepository } from "@/data-access/repositories/blog-rep
 
 export async function getBlogPostBySlug(slug: string) {
   const repository = new BlogRepository();
-  return await repository.getBlogPostBySlug(slug);
+  return await repository.getBlogPostBySlug(slug, { published: true });
 }
 
 export async function getBlogPostById(id: string) {
@@ -35,4 +35,9 @@ export async function createBlogPost(dto: BlogPostDto) {
 export async function getBlogPosts() {
   const repository = new BlogRepository();
   return await repository.getBlogPosts();
+}
+
+export async function publishBlogPost(id: number) {
+  const repository = new BlogRepository();
+  return await repository.publishBlogPost(id);
 }

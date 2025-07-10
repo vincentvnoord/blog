@@ -38,10 +38,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     return <div className="w-full flex items-center justify-center pt-12">Blog post not found</div>;
   }
 
+  const publishedAt = new Date(blog.published_at);
+
   return (
     <div className="w-full flex flex-col items-center pt-10 md:pt-12">
       <div className="flex flex-col w-full p-4 max-w-2xl">
         <h1 className={`${specialFont.className} text-3xl md:text-5xl font-semibold`}>{blog.title}</h1>
+        <p className='pt-2'>{publishedAt.toLocaleString()}</p>
         <BlogPost content={blog.content} />
       </div>
     </div>

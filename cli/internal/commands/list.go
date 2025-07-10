@@ -28,22 +28,28 @@ func List() {
 		blogPost := blogPosts[i]
 		published := "-"
 		if blogPost.PublishedAt != nil {
-			published = *blogPost.PublishedAt
+			published = formatDateTime(*blogPost.PublishedAt)
 		}
 
-		createdAt := ""
-		createdTime, err := time.Parse(time.RFC3339, blogPost.CreatedAt)
-		if err != nil {
-			createdAt = "Error formatting"
-		} else {
-			converted := createdTime.Local()
-			createdAt = converted.Format("02-01-2006 15:04:05")
-		}
+		createdAt := formatDateTime(blogPost.CreatedAt)
 
 		fmt.Fprintf(w, "%d\t%s\t%s\t%s\t%s\n", blogPost.ID, blogPost.Slug, blogPost.Title, createdAt, published)
 	}
 
 	w.Flush()
+}
+
+func formatDateTime(originalDate string) string {
+	formatted := ""
+	parsedTime, err := time.Parse(time.RFC3339, originalDate)
+	if err != nil {
+		formatted = "Error formatting"
+	} else {
+		converted := parsedTime.Local()
+		formatted = converted.Format("02-01-2006 15:04:05")
+	}
+
+	return formatted
 }
 
 func makeRequest() ([]BlogPost, error) {
