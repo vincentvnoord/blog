@@ -7,6 +7,16 @@ import (
 	"strings"
 )
 
+func GetSecretAsBearer() (string, error) {
+	secret, err := GetSecret()
+	if err != nil {
+		return "", err
+	}
+
+	formatted := fmt.Sprintf("Bearer %s", secret)
+	return formatted, nil
+}
+
 func GetSecret() (string, error) {
 	userDir, err := os.UserConfigDir()
 	if err != nil {
@@ -19,7 +29,9 @@ func GetSecret() (string, error) {
 		return "", fmt.Errorf("failed to read secret key from %s: %w", secretPath, err)
 	}
 
-	return strings.TrimSpace(string(secret)), nil
+	formatted := strings.TrimSpace(string(secret))
+
+	return formatted, nil
 }
 
 func SaveSecret(secret string) error {
