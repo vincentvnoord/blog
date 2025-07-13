@@ -193,4 +193,25 @@ export class BlogRepository extends Repository {
       throw error;
     }
   }
+
+  async tryDeleteBlogPost(id: number): Promise<boolean> {
+    const query = `
+      DELETE FROM blogposts
+      WHERE id = $1
+    `;
+
+    const values = [id];
+
+    try {
+      const result = await this.client.query(query, values);
+      if (result.rowCount === 0) {
+        throw new BlogNotFoundError(`No blog post found with ID ${id}`);
+      }
+
+      return true;
+    } catch (error) {
+      console.error("Error publishing blog post:", error);
+      throw error;
+    }
+  }
 }
