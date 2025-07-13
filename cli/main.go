@@ -19,6 +19,7 @@ func main() {
 		fmt.Println("list - Lists all blog posts")
 		fmt.Println("publish - Publish a blog post by ID")
 		fmt.Println("unpublish - Unpublish a blog post by ID")
+		fmt.Println("delete - Delete a blog post by ID")
 		os.Exit(1)
 	}
 
@@ -37,6 +38,8 @@ func main() {
 		commands.Publish(args[2])
 	case "unpublish":
 		commands.Unpublish(args[2])
+	case "delete":
+		commands.Delete(args[2])
 	default:
 		fmt.Printf("Unknown command: %s\n", command)
 	}

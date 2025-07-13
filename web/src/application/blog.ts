@@ -46,3 +46,8 @@ export async function unpublishBlogPost(id: number) {
   const repository = new BlogRepository();
   return await repository.unpublishBlogPost(id);
 }
+
+export async function tryDeleteBlogPost(id: number) {
+  const repository = new BlogRepository();
+  return await repository.tryDeleteBlogPost(id);
+}
