@@ -1,11 +1,11 @@
-import { BlogExistsError } from "@/entities/errors/blog";
+import { BlogExistsError, BlogNotFoundError } from "@/entities/errors/blog";
 import { Repository } from "../repository";
 
 type BlogPostMetadata = {
   title: string;
   description: string;
   slug: string;
-  published_at: string;
+  published_at?: string;
 }
 
 export type BlogPost = BlogPostMetadata & {
@@ -171,7 +171,7 @@ export class BlogRepository extends Repository {
     }
   }
 
-  async unpublishBlogPost(id: number): Promise<void> {
+  async unpublishBlogPost(id: number): Promise<string> {
     const query = `
       UPDATE blogposts
       SET published_at = NULL
@@ -183,11 +183,11 @@ export class BlogRepository extends Repository {
 
     try {
       const result = await this.client.query(query, values);
-      if (result.rows.length > 0) {
-        return result.rows[0] as { slug: string };
+      if (result.rows.length === 0) {
+        throw new BlogNotFoundError(`No blog post found with ID ${id}`);
+      } else {
+        return result.rows[0].slug;
       }
-
-      return null;
     } catch (error) {
       console.error("Error publishing blog post:", error);
       throw error;

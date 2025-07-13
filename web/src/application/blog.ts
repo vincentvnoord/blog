@@ -41,3 +41,8 @@ export async function publishBlogPost(id: number) {
   const repository = new BlogRepository();
   return await repository.publishBlogPost(id);
 }
+
+export async function unpublishBlogPost(id: number) {
+  const repository = new BlogRepository();
+  return await repository.unpublishBlogPost(id);
+}

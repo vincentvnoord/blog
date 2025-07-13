@@ -15,10 +15,10 @@ type PublishResult struct {
 	Slug string `json:"slug"`
 }
 
-func Publish(postId int) {
+func Publish(postId string) {
 	client := http.Client{}
 
-	requestUrl := fmt.Sprintf("%s/post/%d/publish", config.API_URL, postId)
+	requestUrl := fmt.Sprintf("%s/posts/%s/publish", config.API_URL, postId)
 
 	req, err := http.NewRequest("POST", requestUrl, nil)
 	if err != nil {
@@ -50,7 +50,7 @@ func Publish(postId int) {
 	}
 
 	if res.StatusCode != 200 {
-		fmt.Printf("Unsuccesful publish, response %d: $s", res.StatusCode, string(bodyBytes))
+		fmt.Printf("Unsuccesful publish, response %d: %s\n", res.StatusCode, string(bodyBytes))
 		os.Exit(1)
 	}
 
@@ -60,4 +60,6 @@ func Publish(postId int) {
 		fmt.Println("Error unmarshalling response body:", err)
 		os.Exit(1)
 	}
+
+	fmt.Printf("Post published succesfully! You can read it here: %s/posts/%s\n", config.FRONTEND_URL, publishResult.Slug)
 }

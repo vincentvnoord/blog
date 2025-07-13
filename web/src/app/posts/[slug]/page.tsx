@@ -1,6 +1,15 @@
-import { getBlogPostBySlug, getBlogPostMetadata } from '@/application/blog';
+import { getBlogPostBySlug, getBlogPostMetadata, getBlogPosts } from '@/application/blog';
 import { specialFont } from '@/lib/fonts';
 import { BlogPost } from '@/components/blog-post';
+
+export async function generateStaticParams() {
+  const posts = await getBlogPosts();
+
+  console.log("Generating static params for blog posts:", posts);
+
+  return posts
+    .filter(post => post.published_at).map(post => ({ slug: post.slug }));
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -38,13 +47,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     return <div className="w-full flex items-center justify-center pt-12">Blog post not found</div>;
   }
 
-  const publishedAt = new Date(blog.published_at);
+  const publishedAt = new Date(blog.published_at || Date.now());
 
   return (
     <div className="w-full flex flex-col items-center pt-10 md:pt-12">
       <div className="flex flex-col w-full p-4 max-w-2xl">
         <h1 className={`${specialFont.className} text-3xl md:text-5xl font-semibold`}>{blog.title}</h1>
-        <p className='pt-2'>{publishedAt.toLocaleString()}</p>
+        <p className='pt-2'>{publishedAt.toLocaleDateString()}</p>
         <BlogPost content={blog.content} />
       </div>
     </div>
