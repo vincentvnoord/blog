@@ -14,6 +14,15 @@ export default async function Home() {
         {posts.map((post: BlogPost) => (
           <ListedPost key={post.id} {...post} />
         ))}
+        {posts.map((post: BlogPost) => (
+          <ListedPost key={post.id} {...post} />
+        ))}
+        {posts.map((post: BlogPost) => (
+          <ListedPost key={post.id} {...post} />
+        ))}
+        {posts.map((post: BlogPost) => (
+          <ListedPost key={post.id} {...post} />
+        ))}
       </div>
     </div>
   );
@@ -23,7 +32,7 @@ const ListedPost = ({ title, published_at, description, slug }: BlogPost) => {
 
   return (
     <Link href={`/posts/${slug}`} className="no-underline">
-      <div className="col-span-1 flex flex-col min-h-[200px] rounded-lg border border-gray-200 p-2 px-4">
+      <div className="hover:-translate-y-1 transition-transform duration-200 ease-in-out col-span-1 flex flex-col min-h-[200px] rounded-lg border border-gray-200 p-2 px-3">
         <h2 className="text-lg font-semibold">{title}</h2>
         <p className="text-sm text-gray-700">{description}</p>
         <div className="flex-grow w-full mt-2 rounded-lg overflow-hidden">
