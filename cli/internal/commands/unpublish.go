@@ -21,13 +21,12 @@ func Unpublish(postId string) {
 		os.Exit(1)
 	}
 
-	bearer, err := auth.GetSecretAsBearer()
+	err = auth.AddAuthorizationHeader(req)
 	if err != nil {
-		fmt.Printf("Error getting secret: %s", err)
+		fmt.Println("Error adding authorization header to request:", err)
 		os.Exit(1)
 	}
 
-	req.Header.Set("Authorization", bearer)
 	req.Header.Set("Content-Type", "application/json")
 
 	res, err := client.Do(req)

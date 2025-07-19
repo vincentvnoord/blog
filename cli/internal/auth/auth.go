@@ -7,17 +7,13 @@ import (
 	"strings"
 )
 
-func GetSecretAsBearer() (string, error) {
-	secret, err := GetSecret()
-	if err != nil {
-		return "", err
-	}
+type Secret string
 
-	formatted := fmt.Sprintf("Bearer %s", secret)
-	return formatted, nil
+func (s Secret) AsBearer() string {
+	return fmt.Sprintf("Bearer %s", s)
 }
 
-func GetSecret() (string, error) {
+func GetSecret() (Secret, error) {
 	userDir, err := os.UserConfigDir()
 	if err != nil {
 		return "", err
@@ -31,7 +27,7 @@ func GetSecret() (string, error) {
 
 	formatted := strings.TrimSpace(string(secret))
 
-	return formatted, nil
+	return Secret(formatted), nil
 }
 
 func SaveSecret(secret string) error {

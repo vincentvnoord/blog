@@ -18,13 +18,12 @@ func Delete(postId string) {
 		return
 	}
 
-	bearer, err := auth.GetSecretAsBearer()
+	err = auth.AddAuthorizationHeader(req)
 	if err != nil {
-		println("Error getting secret:", err.Error())
+		println("Error adding authorization header:", err.Error())
 		return
 	}
 
-	req.Header.Set("Authorization", bearer)
 	req.Header.Set("Content-Type", "application/json")
 
 	res, err := client.Do(req)

@@ -96,12 +96,11 @@ func sendRequest(blogPost *BlogPostCreate) (*BlogPostUploadResponse, error) {
 		return nil, fmt.Errorf("Error creating request: %s", err)
 	}
 
-	bearer, err := auth.GetSecretAsBearer()
+	err = auth.AddAuthorizationHeader(req)
 	if err != nil {
-		return nil, fmt.Errorf("Error getting secret: %s", err)
+		return nil, fmt.Errorf("Error adding authorization header to request: %s", err)
 	}
 
-	req.Header.Set("Authorization", bearer)
 	req.Header.Set("Content-Type", "application/json")
 
 	res, err := client.Do(req)

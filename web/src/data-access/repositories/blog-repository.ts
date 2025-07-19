@@ -132,7 +132,7 @@ export class BlogRepository extends Repository {
 
   async getBlogPosts(): Promise<BlogPost[]> {
     const query = `
-      SELECT id, title, slug, created_at, published_at
+      SELECT id, title, description, slug, created_at, published_at
       FROM blogposts
       ORDER BY created_at DESC
     `;
