@@ -14,14 +14,14 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
       return new Response("Invalid ID", { status: 400 });
     }
 
-    const res = await publishBlogPost(id);
-    if (!res) {
+    const post = await publishBlogPost(id);
+    if (!post) {
       return new Response("No blog post is affected", { status: 404 })
     }
 
-    revalidatePath(`/posts/${res.slug}`);
+    revalidatePath(`/posts/${post.slug}`);
 
-    return new Response(JSON.stringify(res), { status: 200 });
+    return new Response(JSON.stringify(post), { status: 200 });
   } catch (error) {
     console.error("Error processing request:", error);
     return new Response("Internal Server Error", { status: 500 });

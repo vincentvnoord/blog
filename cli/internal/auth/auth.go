@@ -14,6 +14,12 @@ func (s Secret) AsBearer() string {
 }
 
 func GetSecret() (Secret, error) {
+	env := os.Getenv("ENVIRONMENT")
+	if env == "development" {
+		secret := os.Getenv("SECRET_KEY")
+		return Secret(secret), nil
+	}
+
 	userDir, err := os.UserConfigDir()
 	if err != nil {
 		return "", err

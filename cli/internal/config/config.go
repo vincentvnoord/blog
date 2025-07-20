@@ -6,6 +6,8 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+
+	"github.com/joho/godotenv"
 )
 
 type AppConfig struct {
@@ -18,7 +20,14 @@ var (
 	FRONTEND_URL string
 )
 
-func configDir() (string, error) {
+func ConfigDir() (string, error) {
+	env := os.Getenv("ENVIRONMENT")
+	if env == "development" {
+		// Use the current working directory for development
+		fmt.Println("Running in development mode, using current directory for config.")
+		return ".", nil
+	}
+
 	userDir, err := os.UserConfigDir()
 	if err != nil {
 		return "", err
@@ -29,7 +38,8 @@ func configDir() (string, error) {
 }
 
 func init() {
-	configDir, err := configDir()
+	godotenv.Load()
+	configDir, err := ConfigDir()
 	if err != nil {
 		fmt.Printf("Failed to create user config directory path %s: %s", configDir, err)
 	}

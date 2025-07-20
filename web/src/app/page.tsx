@@ -14,15 +14,6 @@ export default async function Home() {
         {posts.map((post: BlogPost) => (
           <ListedPost key={post.id} {...post} />
         ))}
-        {posts.map((post: BlogPost) => (
-          <ListedPost key={post.id} {...post} />
-        ))}
-        {posts.map((post: BlogPost) => (
-          <ListedPost key={post.id} {...post} />
-        ))}
-        {posts.map((post: BlogPost) => (
-          <ListedPost key={post.id} {...post} />
-        ))}
       </div>
     </div>
   );
