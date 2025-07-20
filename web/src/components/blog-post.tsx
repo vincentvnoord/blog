@@ -20,10 +20,13 @@ export const BlogPost = ({ content }: { content: string }) => {
           >
             {children}
           </Link>,
+          pre: ({ ...props }) => {
+            return <pre className="text-sm bg-gray-100 border-gray-200 border p-2 px-3 rounded-lg my-2 overflow-x-auto" {...props} />;
+          },
         }}
       >
         {cleanContent}
       </ReactMarkdown>
-    </main>
+    </main >
   )
 }
