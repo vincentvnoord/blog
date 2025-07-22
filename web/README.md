@@ -1,10 +1,11 @@
-# My Personal Blog
+# Running locally
 
-This is my personal blog application built with Next.js.
+The following things are required to run this project locally:
 
-## Features
+* Node.js
+* npm (Node Package Manager)
+* Docker (optional, for running the database locally)
+* Dbmate (for database migrations)
 
-- **Static Routes**: Every time a blog post is created/changed, the static routes are updated.
-- **Dashboard**: A dashboard to manage blog posts.
-- **Markdown Support**: Blog posts are written in Markdown format.
-- **Focus on Design**: The design is influenced by other blogs, mainly the small width for readability.
+1. After cloning the repository, run `npm install` to install the dependencies.
+2. 
