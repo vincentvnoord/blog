@@ -1,4 +1,5 @@
 import { getBlogPosts } from "@/application/blog";
+import { CreateNewPost } from "@/components/dashboard/create-post/create-new-post";
 import { BlogPost } from "@/data-access/repositories/blog-repository";
 import { specialFont } from "@/lib/fonts";
 import Link from "next/link";
@@ -10,8 +11,9 @@ export default async function DashboardPage() {
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-6">
+        <div className="flex justify-between mb-6">
           <h1 className={`${specialFont.className} text-3xl font-bold text-gray-800`}>Blog Dashboard</h1>
+          <CreateNewPost />
         </div>
 
         {/* Summary Cards */}
@@ -56,7 +58,7 @@ const ListedPost = ({ id, title, published_at }: BlogPost) => {
 
   return (
     <Link
-      href={`/dash/posts/${id}`}
+      href={`/dashboard/posts/${id}`}
       className="grid hover:bg-gray-50 rounded-md cursor-pointer grid-cols-[40%_1fr_1fr_1fr] p-2 col-span-4"
     >
       <span className="pr-2 truncate">{title}</span>
