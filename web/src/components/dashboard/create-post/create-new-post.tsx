@@ -6,6 +6,9 @@ import { PostContentInput } from "./file-input";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import { BlogPostSchema, blogPostSchema } from "@/application/validation/validate-blog-post";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { createBlogPostAction } from "@/actions/create-blog-action";
+import { useTableStore } from "@/application/stores/table-store";
+import { BlogPostMetadata } from "@/data-access/repositories/blog-repository";
 
 export const CreateNewPost = () => {
   const methods = useForm<BlogPostSchema>({
@@ -19,6 +22,7 @@ export const CreateNewPost = () => {
   const { errors } = methods.formState;
 
   const [open, setOpen] = useState(false);
+  const { addPost } = useTableStore();
 
   useEffect(() => {
     // Show validation errors in the UI
@@ -32,7 +36,15 @@ export const CreateNewPost = () => {
   }, [errors]);
 
   const handleSubmit = async (fields: FieldValues) => {
-    console.log("Form submitted with data:", fields);
+    const res = await createBlogPostAction(fields);
+    if (res.error) {
+      console.log(res.error)
+      return;
+    }
+
+    if (res.post) {
+      addPost(res.post as BlogPostMetadata);
+    }
 
     setOpen(false);
   }

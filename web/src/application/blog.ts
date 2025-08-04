@@ -31,6 +31,7 @@ export async function getBlogPostMetadata(slug: string) {
 
 export async function createBlogPost(data: BlogPostSchema) {
   const dto: BlogPostDto = {
+    id: -1,
     title: data.title,
     description: data.description,
     content: data.content,
