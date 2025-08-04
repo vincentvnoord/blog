@@ -1,4 +1,6 @@
 import { BlogPostDto, BlogRepository } from "@/data-access/repositories/blog-repository";
+import { BlogPostSchema } from "./validation/validate-blog-post";
+import { makeSlug } from "@/lib/make-slug";
 
 export async function getBlogPostBySlug(slug: string) {
   const repository = new BlogRepository();
@@ -27,7 +29,14 @@ export async function getBlogPostMetadata(slug: string) {
   return metadata;
 }
 
-export async function createBlogPost(dto: BlogPostDto) {
+export async function createBlogPost(data: BlogPostSchema) {
+  const dto: BlogPostDto = {
+    title: data.title,
+    description: data.description,
+    content: data.content,
+    slug: makeSlug(data.title),
+  }
+
   const repository = new BlogRepository();
   return await repository.createBlogPost(dto);
 }
