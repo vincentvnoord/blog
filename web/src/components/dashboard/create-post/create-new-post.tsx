@@ -18,7 +18,7 @@ export const CreateNewPost = () => {
   });
   const { errors } = methods.formState;
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     // Show validation errors in the UI
