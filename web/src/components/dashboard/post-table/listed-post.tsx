@@ -41,7 +41,6 @@ const DeleteButton = ({ postId }: { postId: number }) => {
     },
     onError: (error) => {
       console.error("Error deleting post:", error);
-      // Optionally, you can show an error message to the user
     }
   })
 
@@ -67,8 +66,6 @@ const DeleteButton = ({ postId }: { postId: number }) => {
           className="text-red-600 hover:text-red-800"
           onClick={(e) => {
             e.preventDefault();
-            // Handle delete logic here
-            console.log(`Delete post with ID: ${postId}`);
             setOpen(true);
           }}
         >
