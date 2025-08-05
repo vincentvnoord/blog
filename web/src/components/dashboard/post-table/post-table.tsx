@@ -1,19 +1,17 @@
 "use client";
 
 import { useTableStore } from "@/application/stores/table-store";
-import { BlogPostMetadata } from "@/data-access/repositories/blog-repository";
 import { useEffect } from "react";
 import { ListedPost } from "./listed-post";
 import { useQuery } from "@tanstack/react-query";
 import { getPostsListAction } from "@/actions/get-posts-list.action";
 
-export const PostTable = ({ initialPosts }: { initialPosts: BlogPostMetadata[] }) => {
+export const PostTable = () => {
   const { posts, setPosts } = useTableStore();
 
   const { data } = useQuery({
     queryKey: ["posts"],
     queryFn: getPostsListAction,
-    initialData: initialPosts,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     refetchOnReconnect: false,

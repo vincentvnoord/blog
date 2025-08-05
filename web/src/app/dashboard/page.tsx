@@ -1,10 +1,8 @@
-import { getBlogPosts } from "@/application/blog";
 import { CreateNewPost } from "@/components/dashboard/create-post/create-new-post";
 import { PostTable } from "@/components/dashboard/post-table/post-table";
 import { specialFont } from "@/lib/fonts";
 
 export default async function DashboardPage() {
-  const posts = await getBlogPosts();
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -29,7 +27,7 @@ export default async function DashboardPage() {
           ))}
         </div>
 
-        <PostTable initialPosts={posts} />
+        <PostTable />
       </div>
     </div>
   );

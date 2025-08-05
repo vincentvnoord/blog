@@ -1,5 +1,6 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react"
 import { AnimatePresence, motion } from "motion/react";
 import { PostContentInput } from "./file-input";
@@ -23,6 +24,7 @@ export const CreateNewPost = () => {
 
   const [open, setOpen] = useState(false);
   const { addPost } = useTableStore();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     // Show validation errors in the UI
@@ -44,6 +46,7 @@ export const CreateNewPost = () => {
 
     if (res.post) {
       addPost(res.post as BlogPostMetadata);
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
     }
 
     setOpen(false);
