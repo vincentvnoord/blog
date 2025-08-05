@@ -1,7 +1,7 @@
 import { deletePostAction } from "@/actions/delete-post-action";
 import { useTableStore } from "@/application/stores/table-store";
 import { BlogPostMetadata } from "@/data-access/repositories/blog-repository";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Trash2Icon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -31,11 +31,13 @@ const DeleteButton = ({ postId }: { postId: number }) => {
   const [open, setOpen] = useState(false);
   const { deletePost } = useTableStore();
 
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: () => deletePostAction(postId),
     onSuccess: () => {
       setOpen(false);
       deletePost(postId);
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
     },
     onError: (error) => {
       console.error("Error deleting post:", error);
@@ -58,7 +60,9 @@ const DeleteButton = ({ postId }: { postId: number }) => {
 
   return (
     <>
-      <div className="flex justify-end items-center text-right">
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="flex justify-end items-center text-right">
         <button
           className="text-red-600 hover:text-red-800"
           onClick={(e) => {
@@ -74,8 +78,12 @@ const DeleteButton = ({ postId }: { postId: number }) => {
 
       {
         open && (
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-50">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm">
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="absolute inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm">
               <h2 className="text-lg font-semibold mb-4">Are you sure you want to delete this post?</h2>
               {
                 error &&
