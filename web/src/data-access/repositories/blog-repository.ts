@@ -1,7 +1,8 @@
 import { BlogExistsError, BlogNotFoundError } from "@/entities/errors/blog";
 import { Repository } from "../repository";
 
-type BlogPostMetadata = {
+export type BlogPostMetadata = {
+  id: number;
   title: string;
   description: string;
   slug: string;
@@ -9,7 +10,6 @@ type BlogPostMetadata = {
 }
 
 export type BlogPost = BlogPostMetadata & {
-  id: number;
   content: string;
 }
 
