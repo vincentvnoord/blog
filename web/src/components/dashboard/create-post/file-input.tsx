@@ -23,6 +23,11 @@ export const PostContentInput = () => {
       };
 
       reader.readAsText(file);
+    } else {
+      setContent("");
+      setValue("content", "");
+      setValue("title", "");
+      setValue("description", "");
     }
 
   }, [file, setValue]);
@@ -73,7 +78,7 @@ export const PostContentInput = () => {
                   className="z-40 text-red-400">
                   Remove File
                 </button>
-                <input type="text" {...register("content")} />
+                <textarea {...register("content")} hidden />
 
                 <BlogPost content={file ? content : ""} />
               </motion.div>

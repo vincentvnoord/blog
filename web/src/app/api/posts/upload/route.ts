@@ -22,6 +22,7 @@ export async function POST(req: NextRequest) {
 
     const slug = makeSlug(title);
     const post: BlogPostDto = {
+      id: -1,
       title,
       description,
       content,

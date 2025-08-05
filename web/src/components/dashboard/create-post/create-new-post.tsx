@@ -4,11 +4,14 @@ import { useEffect, useState } from "react"
 import { AnimatePresence, motion } from "motion/react";
 import { PostContentInput } from "./file-input";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
-import { blogPostSchema } from "@/application/validation/validate-blog-post";
+import { BlogPostSchema, blogPostSchema } from "@/application/validation/validate-blog-post";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { createBlogPostAction } from "@/actions/create-blog-action";
+import { useTableStore } from "@/application/stores/table-store";
+import { BlogPostMetadata } from "@/data-access/repositories/blog-repository";
 
 export const CreateNewPost = () => {
-  const methods = useForm<blogPostSchema>({
+  const methods = useForm<BlogPostSchema>({
     resolver: zodResolver(blogPostSchema),
     defaultValues: {
       title: "",
@@ -18,7 +21,8 @@ export const CreateNewPost = () => {
   });
   const { errors } = methods.formState;
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const { addPost } = useTableStore();
 
   useEffect(() => {
     // Show validation errors in the UI
@@ -31,9 +35,17 @@ export const CreateNewPost = () => {
     }
   }, [errors]);
 
-  const handleSubmit = (data: FieldValues) => {
-    console.log("Form submitted with data:", data);
-    // Here you would typically handle the form submission, e.g., send the data to an API
+  const handleSubmit = async (fields: FieldValues) => {
+    const res = await createBlogPostAction(fields);
+    if (res.error) {
+      console.log(res.error)
+      return;
+    }
+
+    if (res.post) {
+      addPost(res.post as BlogPostMetadata);
+    }
+
     setOpen(false);
   }
 
@@ -55,7 +67,7 @@ export const CreateNewPost = () => {
                 <PostContentInput />
                 <div className="w-full flex justify-between items-center">
 
-                  <button onClick={() => setOpen(false)} className="text-gray-500 hover:text-gray-700">
+                  <button type="button" onClick={() => setOpen(false)} className="text-gray-500 hover:text-gray-700">
                     Cancel
                   </button>
                   <button type="submit" className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors">

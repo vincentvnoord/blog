@@ -6,4 +6,4 @@ export const blogPostSchema = z.object({
   content: z.string().min(1, "Content is required"),
 });
 
-export type blogPostSchema = z.infer<typeof blogPostSchema>;
+export type BlogPostSchema = z.infer<typeof blogPostSchema>;
