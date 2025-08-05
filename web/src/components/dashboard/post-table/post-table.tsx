@@ -2,10 +2,11 @@
 
 import { useTableStore } from "@/application/stores/table-store";
 import { BlogPostMetadata } from "@/data-access/repositories/blog-repository";
-import Link from "next/link";
 import { useEffect } from "react";
+import { ListedPost } from "./listed-post";
 
 export const PostTable = ({ initialPosts }: { initialPosts: BlogPostMetadata[] }) => {
+  console.log("PostTable rendered with initialPosts:", initialPosts);
   const { posts, setPosts } = useTableStore();
 
   useEffect(() => {
@@ -37,17 +38,4 @@ const TableHeader = ({ className, children }: { className?: string, children: Re
   );
 }
 
-const ListedPost = ({ id, title, published_at }: BlogPostMetadata) => {
 
-  return (
-    <Link
-      href={`/dashboard/posts/${id}`}
-      className="grid hover:bg-gray-50 rounded-md cursor-pointer grid-cols-[40%_1fr_1fr_1fr] p-2 col-span-4"
-    >
-      <span className="pr-2 truncate">{title}</span>
-      <span className="truncate">{published_at ? "Published" : "Draft"}</span>
-      <span className="truncate">{published_at && new Date(published_at).toLocaleDateString()}</span>
-      <span className="truncate"></span>
-    </Link >
-  );
-}

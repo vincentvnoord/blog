@@ -1,6 +1,6 @@
 import { getBlogPosts } from "@/application/blog";
 import { CreateNewPost } from "@/components/dashboard/create-post/create-new-post";
-import { PostTable } from "@/components/dashboard/post-table";
+import { PostTable } from "@/components/dashboard/post-table/post-table";
 import { specialFont } from "@/lib/fonts";
 
 export default async function DashboardPage() {
