@@ -42,9 +42,9 @@ export async function createBlogPost(data: BlogPostSchema) {
   return await repository.createBlogPost(dto);
 }
 
-export async function getBlogPosts() {
+export async function getBlogPosts(options?: { published?: boolean }) {
   const repository = new BlogRepository();
-  return await repository.getBlogPosts();
+  return await repository.getBlogPosts(options);
 }
 
 export async function publishBlogPost(id: number) {

@@ -1,6 +1,6 @@
 import { getBlogPostBySlug, getBlogPostMetadata, getBlogPosts } from '@/application/blog';
 import { specialFont } from '@/lib/fonts';
-import { BlogPost } from '@/components/blog-post';
+import { BlogPostRender as BlogPost } from '@/components/blog-post';
 
 export async function generateStaticParams() {
   const posts = await getBlogPosts();
