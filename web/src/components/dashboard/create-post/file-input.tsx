@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { CloudUpload } from "lucide-react";
-import { BlogPost } from "@/components/blog-post";
+import { BlogPostRender } from "@/components/blog-post";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 
@@ -80,7 +80,7 @@ export const PostContentInput = () => {
                 </button>
                 <textarea {...register("content")} hidden />
 
-                <BlogPost content={file ? content : ""} />
+                <BlogPostRender content={file ? content : ""} />
               </motion.div>
               :
               <motion.div

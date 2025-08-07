@@ -1,6 +1,6 @@
 import { getBlogPostById } from '@/application/blog';
 import { specialFont } from '@/lib/fonts';
-import { BlogPost } from '@/components/blog-post';
+import { BlogPostRender as BlogPost } from '@/components/blog-post';
 
 export default async function BlogDraftPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

@@ -112,7 +112,7 @@ export class BlogRepository extends Repository {
 
   async getBlogPostById(id: number): Promise<BlogPost | null> {
     const query = `
-      SELECT id, title, content
+      SELECT id, title, content, description, slug, published_at
       FROM blogposts
       WHERE id = $1
     `;
@@ -130,12 +130,19 @@ export class BlogRepository extends Repository {
     }
   }
 
-  async getBlogPosts(): Promise<BlogPost[]> {
-    const query = `
+  async getBlogPosts(options?: { published?: boolean }): Promise<BlogPost[]> {
+    let query = `
       SELECT id, title, description, slug, created_at, published_at
       FROM blogposts
-      ORDER BY created_at DESC
     `;
+
+    if (options?.published === false) {
+      query += " WHERE published_at IS NULL";
+    } else if (options?.published === true) {
+      query += " WHERE published_at IS NOT NULL";
+    }
+
+    query += " ORDER BY created_at DESC";
 
     try {
       const result = await this.client.query(query);

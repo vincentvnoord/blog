@@ -4,8 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default async function Home() {
-  const posts = await getBlogPosts();
-  console.log("Posts fetched:", posts);
+  const posts = await getBlogPosts({ published: true });
 
   return (
     <div className="w-full flex flex-col items-center pt-12">

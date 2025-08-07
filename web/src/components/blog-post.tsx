@@ -2,7 +2,7 @@ import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
 import { specialFont } from '@/lib/fonts';
 
-export const BlogPost = ({ content }: { content: string }) => {
+export const BlogPostRender = ({ content }: { content: string }) => {
   const cleanContent = content.replace(/\\n/g, '\n');
 
   return (
