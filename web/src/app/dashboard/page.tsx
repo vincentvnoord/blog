@@ -4,6 +4,10 @@ import { specialFont } from "@/lib/fonts";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import Image from "next/image";
+<<<<<<< HEAD
+=======
+import { Statistics } from "@/components/dashboard/stats";
+>>>>>>> dev
 
 export default async function DashboardPage() {
   const user = await getServerSession();
@@ -36,6 +40,7 @@ export default async function DashboardPage() {
           <CreateNewPost />
         </div>
 
+<<<<<<< HEAD
         {/* Summary Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-4">
           {[
@@ -49,6 +54,9 @@ export default async function DashboardPage() {
             </div>
           ))}
         </div>
+=======
+        <Statistics />
+>>>>>>> dev
 
         <PostTable />
       </div>
