@@ -43,7 +43,7 @@ export default async function DashboardPage() {
             { label: "Drafts", value: 8, color: "bg-yellow-100 text-yellow-800" },
             { label: "Published", value: 34, color: "bg-green-100 text-green-800" },
           ].map(({ label, value, color }) => (
-            <div key={label} className="p-4 rounded-lg shadow-sm bg-white">
+            <div key={label} className="p-4 rounded-lg border border-gray-200 shadow-xs bg-white">
               <div className="text-sm text-gray-500">{label}</div>
               <div className={`mt-1 text-2xl font-semibold ${color}`}>{value}</div>
             </div>

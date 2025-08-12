@@ -1,3 +1,5 @@
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
 export function isAuthorized(req: NextRequest) {
@@ -13,4 +15,19 @@ export function isAuthorized(req: NextRequest) {
   }
 
   return true;
+}
+
+
+
+/**
+ * This function checks if the user is authenticated.
+ * @returns The session object if authenticated, otherwise redirects to login.
+ */
+export async function requireAuth() {
+  const session = await getServerSession();
+  if (!session) {
+    redirect("/login");
+  }
+
+  return session;
 }

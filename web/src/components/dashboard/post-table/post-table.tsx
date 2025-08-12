@@ -24,7 +24,7 @@ export const PostTable = () => {
   }, [data, setPosts]);
 
   return (
-    < div className="bg-white p-4 grid grid-cols-[40%_1fr_1fr_1fr] shadow-sm rounded-lg overflow-hidden" >
+    < div className="bg-white border border-gray-200 p-4 grid grid-cols-[40%_1fr_1fr_1fr] shadow-xs rounded-lg overflow-hidden" >
       <TableHeader className="pl-2">Title</TableHeader>
       <TableHeader>Status</TableHeader>
       <TableHeader>Date</TableHeader>

@@ -1,9 +1,12 @@
 "use server";
 
 import { getBlogPostById, publishBlogPost, unpublishBlogPost } from "@/application/blog";
+import { requireAuth } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 
 export const togglePublishPostAction = async (id: number, isPublished: boolean) => {
+  await requireAuth();
+
   try {
     if (isPublished) {
       await unpublishBlogPost(id);
