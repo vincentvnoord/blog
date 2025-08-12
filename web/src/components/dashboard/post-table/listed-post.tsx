@@ -10,20 +10,26 @@ export const ListedPost = ({ id, title, published_at }: BlogPostMetadata) => {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <Link
+    <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      href={`/dashboard/posts/${id}`}
-      className="grid hover:bg-gray-50 rounded-md cursor-pointer grid-cols-[40%_1fr_1fr_1fr] p-2 col-span-4"
+      className="grid hover:bg-gray-50 rounded-md grid-cols-[40%_1fr_1fr_1fr] p-2 col-span-4"
     >
-      <span className="pr-2 truncate">{title}</span>
+
+      <Link
+        href={`/dashboard/posts/${id}`}
+        className="pr-2 truncate hover:underline w-fit"
+      >
+        {title}
+      </Link>
+
       <span className="truncate">{published_at ? "Published" : "Draft"}</span>
       <span className="truncate">{published_at && new Date(published_at).toLocaleDateString()}</span>
       {
         hovered &&
         <DeleteButton postId={id} />
       }
-    </Link >
+    </div >
   );
 }
 
