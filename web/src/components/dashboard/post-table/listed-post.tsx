@@ -9,6 +9,9 @@ import { useState } from "react";
 export const ListedPost = ({ id, title, published_at }: BlogPostMetadata) => {
   const [hovered, setHovered] = useState(false);
 
+  const publishedStyle = "bg-green-200 text-green-800 border-green-400"
+  const draftStyle = "bg-yellow-100 text-yellow-800 border-yellow-400";
+
   return (
     <div
       onMouseEnter={() => setHovered(true)}
@@ -23,7 +26,7 @@ export const ListedPost = ({ id, title, published_at }: BlogPostMetadata) => {
         {title}
       </Link>
 
-      <span className="truncate">{published_at ? "Published" : "Draft"}</span>
+      <span className={`border rounded-md w-fit px-1 text-sm ${published_at ? publishedStyle : draftStyle}`}>{published_at ? "Published" : "Draft"}</span>
       <span className="truncate">{published_at && new Date(published_at).toLocaleDateString()}</span>
       {
         hovered &&
